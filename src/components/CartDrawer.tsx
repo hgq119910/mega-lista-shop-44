@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
@@ -32,11 +31,13 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
         .insert({
           total,
           status: 'completed',
-          user_id: '00000000-0000-0000-0000-000000000000' // Demo user ID
         })
         .select();
 
-      if (orderError) throw orderError;
+      if (orderError) {
+        console.error('Error al crear la orden:', orderError);
+        throw orderError;
+      }
 
       if (!order || order.length === 0) {
         throw new Error("No se pudo crear la orden");
@@ -54,7 +55,10 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
         .from('order_items')
         .insert(orderItems);
 
-      if (itemsError) throw itemsError;
+      if (itemsError) {
+        console.error('Error al crear los items de la orden:', itemsError);
+        throw itemsError;
+      }
 
       toast.success("¡Pedido realizado con éxito!");
       clearCart(); // Limpiar el carrito después de la compra
