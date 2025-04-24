@@ -10,6 +10,8 @@ import {
   DrawerTitle,
   DrawerFooter,
 } from '@/components/ui/drawer';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface CartDrawerProps {
   open: boolean;
@@ -20,10 +22,31 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
   const { items, removeFromCart, updateQuantity } = useCart();
   const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
-  const handleCheckout = () => {
-    // Por ahora solo cerramos el drawer
-    // La funcionalidad de pago se implementará después
-    onClose();
+  const handleCheckout = async () => {
+    try {
+      // Simular proceso de pago
+      const orderItems = items.map(item => ({
+        product_id: item.product.id,
+        quantity: item.quantity,
+        price: item.product.price
+      }));
+
+      const { error } = await supabase
+        .from('orders')
+        .insert({
+          total: total,
+          status: 'completed',
+          order_items: orderItems
+        });
+
+      if (error) throw error;
+
+      toast.success("¡Pedido realizado con éxito!");
+      onClose();
+    } catch (error) {
+      console.error('Error al procesar el pedido:', error);
+      toast.error("Error al procesar el pedido");
+    }
   };
 
   return (

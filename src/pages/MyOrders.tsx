@@ -1,9 +1,8 @@
 
 import React from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
-import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -12,14 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { toast } from 'sonner';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Trash2 } from 'lucide-react';
+import { Package } from 'lucide-react';
 
 const MyOrders = () => {
-  const queryClient = useQueryClient();
-
   // Consulta para obtener los pedidos
   const { data: orders, isLoading } = useQuery({
     queryKey: ['orders'],
@@ -28,9 +24,7 @@ const MyOrders = () => {
         .from('orders')
         .select(`
           *,
-          order_items (
-            *
-          )
+          order_items (*)
         `)
         .order('created_at', { ascending: false });
 
@@ -39,60 +33,15 @@ const MyOrders = () => {
     }
   });
 
-  // Mutación para eliminar un pedido
-  const deleteMutation = useMutation({
-    mutationFn: async (orderId: string) => {
-      const { error } = await supabase
-        .from('orders')
-        .delete()
-        .eq('id', orderId);
-      
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-      toast.success('Pedido eliminado correctamente');
-    },
-    onError: (error) => {
-      toast.error('Error al eliminar el pedido');
-      console.error('Error:', error);
-    }
-  });
-
-  const handleDeleteOrder = (orderId: string) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este pedido?')) {
-      deleteMutation.mutate(orderId);
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'text-green-600 bg-green-100';
-      case 'cancelled':
-        return 'text-red-600 bg-red-100';
-      default:
-        return 'text-yellow-600 bg-yellow-100';
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'Completado';
-      case 'cancelled':
-        return 'Cancelado';
-      default:
-        return 'Pendiente';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       
       <main className="container py-8">
-        <h1 className="text-3xl font-bold mb-6">Mis Pedidos</h1>
+        <div className="flex items-center gap-2 mb-6">
+          <Package className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold">Mis Pedidos</h1>
+        </div>
         
         {isLoading ? (
           <div className="text-center py-8">Cargando pedidos...</div>
@@ -109,7 +58,6 @@ const MyOrders = () => {
                   <TableHead>Fecha</TableHead>
                   <TableHead>Estado</TableHead>
                   <TableHead className="text-right">Total</TableHead>
-                  <TableHead className="text-right">Acciones</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -122,22 +70,12 @@ const MyOrders = () => {
                       {format(new Date(order.created_at), 'PPp', { locale: es })}
                     </TableCell>
                     <TableCell>
-                      <span className={`px-2 py-1 rounded-full text-sm ${getStatusColor(order.status)}`}>
-                        {getStatusText(order.status)}
+                      <span className="px-2 py-1 rounded-full text-sm bg-green-100 text-green-600">
+                        {order.status === 'completed' ? 'Completado' : 'Pendiente'}
                       </span>
                     </TableCell>
                     <TableCell className="text-right">
                       ${order.total.toFixed(2)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDeleteOrder(order.id)}
-                        disabled={order.status === 'completed'}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
