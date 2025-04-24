@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ShoppingBag, User, Search } from 'lucide-react';
+import Logo from './Logo';
+import { useCart } from '@/contexts/CartContext';
 
 const Header = () => {
+  const { totalItems } = useCart();
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
       {/* Top bar */}
@@ -23,10 +27,7 @@ const Header = () => {
       {/* Main header */}
       <div className="container py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-primary">
-            MultiTienda
-          </Link>
+          <Logo />
           
           {/* Search bar */}
           <div className="flex-1 max-w-xl px-6">
@@ -48,7 +49,7 @@ const Header = () => {
             </Button>
             <Button variant="outline" size="sm">
               <ShoppingBag className="mr-2 h-5 w-5" />
-              Carrito (0)
+              Carrito ({totalItems})
             </Button>
           </div>
         </div>
