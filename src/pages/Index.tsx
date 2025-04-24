@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Header from '@/components/Header';
-import FeaturedCarousel from '@/components/FeaturedCarousel';
+import { FeaturedCarousel } from '@/components/FeaturedCarousel';
 import CategoryIcons from '@/components/CategoryIcons';
 import CategorySection from '@/components/CategorySection';
 import { categories } from '@/types/store';
