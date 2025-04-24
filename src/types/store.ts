@@ -173,11 +173,11 @@ export const products: Record<string, Product> = {
   },
   "m1": {
     id: "m1",
-    name: "Organizador Multiusos",
-    price: 17.99,
-    image: "https://via.placeholder.com/150",
+    name: "Organizador Multiusos Escalera",
+    price: 79.99,
+    image: "/lovable-uploads/0abd49ee-38b3-4981-8d63-622e18b53342.png",
     categories: ["hogar", "limpieza"],
-    description: "Organizador para artículos del hogar o productos de limpieza",
-    stock: 8
+    description: "Elegante estantería escalera de 4 niveles en blanco mate. Diseño moderno y versátil ideal para baño, sala o dormitorio. Perfecta para organizar toallas, productos de limpieza, decoración y más. Estructura resistente con acabado premium y montaje sencillo.",
+    stock: 10
   }
 };
