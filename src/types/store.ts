@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -28,7 +27,7 @@ export const categories: Category[] = [
     id: "limpieza",
     name: "Productos de Limpieza",
     icon: "🧹",
-    products: ["l1", "l2", "l3", "m1"]
+    products: ["l1", "l2", "l3", "l4", "m1"]
   },
   {
     id: "tecnologia",
@@ -84,30 +83,39 @@ export const products: Record<string, Product> = {
   },
   "l1": {
     id: "l1",
-    name: "Detergente Multiusos",
+    name: "Detergente Multiusos 3D",
     price: 5.99,
-    image: "https://via.placeholder.com/150",
+    image: "/lovable-uploads/b2b94b62-941a-4167-a5d3-ce6035bafafd.png",
     categories: ["limpieza"],
-    description: "Detergente concentrado para múltiples superficies",
+    description: "Detergente líquido multiusos con aroma fresco. Paquete de 2 unidades de 1.8L cada una. Ideal para pisos y superficies. Fórmula concentrada con tecnología 3D para una limpieza profunda.",
     stock: 30
   },
   "l2": {
     id: "l2",
-    name: "Escoba y Recogedor",
-    price: 12.99,
-    image: "https://via.placeholder.com/150",
+    name: "Set Escoba y Recogedor Premium",
+    price: 15.99,
+    image: "/lovable-uploads/54550c9f-ca58-498f-ae83-4dc251f5bac2.png",
     categories: ["limpieza"],
-    description: "Set de escoba y recogedor ergonómicos",
-    stock: 10
+    description: "Set de escoba y recogedor ergonómicos con acabado premium. Diseño innovador con recogedor de cierre automático. Mango extensible de acero inoxidable y cerdas resistentes de alta calidad.",
+    stock: 20
   },
   "l3": {
     id: "l3",
-    name: "Limpiador de Vidrios",
+    name: "Limpiador Multiusos Mr Músculo",
     price: 4.99,
-    image: "https://via.placeholder.com/150",
+    image: "/lovable-uploads/341414b9-6943-4224-acf9-0ed786a73b06.png",
     categories: ["limpieza"],
-    description: "Spray limpiador para cristales y espejos",
-    stock: 25
+    description: "Limpiador en spray para vidrios y superficies. Fórmula sin vetas que deja un acabado brillante y sin marcas. Botella de 500ml con gatillo ergonómico.",
+    stock: 45
+  },
+  "l4": {
+    id: "l4",
+    name: "Estantería Organizadora 5 Niveles",
+    price: 29.99,
+    image: "/lovable-uploads/7aa979ca-8e68-4531-a823-8f1326f389a4.png",
+    categories: ["limpieza", "hogar"],
+    description: "Estantería de plástico resistente con 5 niveles. Perfecta para organizar productos de limpieza o artículos del hogar. Fácil de ensamblar, resistente al agua y de gran capacidad.",
+    stock: 15
   },
   "t1": {
     id: "t1",
