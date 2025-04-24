@@ -17,10 +17,10 @@ const slides = [
     bgImage: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80"
   },
   {
-    title: "Nuevas Colecciones",
-    subtitle: "Descubre las últimas tendencias",
+    title: "Nuevas Colecciones de Moda",
+    subtitle: "Descubre los últimos estilos",
     buttonText: "Ver colección",
-    bgImage: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80"
+    bgImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80"
   }
 ];
 
