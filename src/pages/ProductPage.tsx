@@ -4,11 +4,13 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import { products, categories } from '@/types/store';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, ArrowLeft } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Check } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const product = products[id || ''];
+  const { addToCart } = useCart();
   
   if (!product) {
     return (
@@ -40,14 +42,14 @@ const ProductPage = () => {
           Volver a la tienda
         </Link>
         
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Imagen del producto */}
-            <div>
+            <div className="bg-gray-50 rounded-lg overflow-hidden">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-auto rounded-md"
+                className="w-full h-auto object-contain aspect-square"
               />
             </div>
             
@@ -76,6 +78,25 @@ const ProductPage = () => {
                 {product.description}
               </p>
               
+              {/* Características */}
+              <div className="mb-6 bg-gray-50 p-4 rounded-lg">
+                <h3 className="font-medium mb-2">Características:</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-center">
+                    <Check className="h-5 w-5 text-green-500 mr-2" />
+                    <span>Calidad premium</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="h-5 w-5 text-green-500 mr-2" />
+                    <span>Envío gratis</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check className="h-5 w-5 text-green-500 mr-2" />
+                    <span>Garantía de 12 meses</span>
+                  </li>
+                </ul>
+              </div>
+              
               {/* Disponibilidad */}
               <div className="mb-6">
                 <span className="text-sm font-medium">Disponibilidad: </span>
@@ -87,7 +108,12 @@ const ProductPage = () => {
               </div>
               
               {/* Botón de compra */}
-              <Button className="w-full" size="lg" disabled={product.stock === 0}>
+              <Button 
+                className="w-full" 
+                size="lg" 
+                disabled={product.stock === 0}
+                onClick={() => addToCart(product)}
+              >
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Añadir al carrito
               </Button>

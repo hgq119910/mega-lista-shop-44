@@ -22,7 +22,7 @@ export const categories: Category[] = [
     id: "hogar",
     name: "Artículos del Hogar",
     icon: "🏠",
-    products: ["h1", "h2", "h3", "m1"]
+    products: ["h1", "h2", "h3", "h4", "m1"]
   },
   {
     id: "limpieza",
@@ -48,30 +48,39 @@ export const categories: Category[] = [
 export const products: Record<string, Product> = {
   "h1": {
     id: "h1",
-    name: "Juego de Sábanas",
-    price: 29.99,
-    image: "https://via.placeholder.com/150",
+    name: "Juego de Sábanas Premium",
+    price: 49.99,
+    image: "/lovable-uploads/84b1dbc3-3acf-4b3f-b63d-a6a5ce776253.png",
     categories: ["hogar"],
-    description: "Juego de sábanas de algodón, 4 piezas",
+    description: "Juego de sábanas de algodón egipcio de alta calidad, suaves y duraderas. Set completo que incluye sábana ajustable, sábana plana y fundas de almohada. Perfectas para un descanso confortable.",
     stock: 15
   },
   "h2": {
     id: "h2",
-    name: "Lámpara de Mesa",
-    price: 39.99,
-    image: "https://via.placeholder.com/150",
+    name: "Lámpara de Mesa Espiral",
+    price: 59.99,
+    image: "/lovable-uploads/dffb38d7-f0cf-4bcb-ad71-bbaa323689c0.png",
     categories: ["hogar"],
-    description: "Lámpara moderna para mesa de noche",
+    description: "Elegante lámpara LED de diseño moderno con forma espiral. Perfecta para tu mesa de noche o escritorio. Incluye iluminación LED cálida que crea un ambiente relajante en cualquier habitación.",
     stock: 8
   },
   "h3": {
     id: "h3",
-    name: "Juego de Toallas",
-    price: 19.99,
-    image: "https://via.placeholder.com/150",
+    name: "Set de Toallas Premium",
+    price: 39.99,
+    image: "/lovable-uploads/85ee574e-24c6-4945-b2fa-5097e9795c6f.png",
     categories: ["hogar"],
-    description: "Juego de 3 toallas de baño",
+    description: "Juego completo de 7 toallas de algodón de alta densidad y absorción. Incluye toallas de baño, de mano y toallitas faciales. Ultra suaves y duraderas, disponibles en elegante color gris.",
     stock: 20
+  },
+  "h4": {
+    id: "h4",
+    name: "Estantería Organizadora Multipiso",
+    price: 45.99,
+    image: "/lovable-uploads/b3ffde0a-4e93-4344-b553-a24fd8f20f9f.png",
+    categories: ["hogar"],
+    description: "Estantería de 5 niveles resistente y versátil. Perfecta para organizar libros, decoraciones, impresoras y artículos del hogar. Fácil de armar y con capacidad para soportar hasta 25kg por nivel.",
+    stock: 12
   },
   "l1": {
     id: "l1",
