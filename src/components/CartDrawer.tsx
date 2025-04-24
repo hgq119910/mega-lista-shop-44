@@ -34,14 +34,17 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
           status: 'completed',
           user_id: '00000000-0000-0000-0000-000000000000' // Demo user ID
         })
-        .select()
-        .single();
+        .select();
 
       if (orderError) throw orderError;
 
+      if (!order || order.length === 0) {
+        throw new Error("No se pudo crear la orden");
+      }
+
       // 2. Crear los items de la orden
       const orderItems = items.map(item => ({
-        order_id: order.id,
+        order_id: order[0].id,
         product_id: item.product.id,
         quantity: item.quantity,
         price: item.product.price
