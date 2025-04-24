@@ -1,25 +1,18 @@
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ShoppingBag, User, Search } from 'lucide-react';
 import Logo from './Logo';
 import { useCart } from '@/contexts/CartContext';
 import CartDrawer from './CartDrawer';
+import { useSearch } from '@/hooks/useSearch';
 
 const Header = () => {
   const { totalItems } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
+  const { searchQuery, setSearchQuery, handleSearch } = useSearch();
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">

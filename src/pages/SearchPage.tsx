@@ -3,13 +3,13 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import ProductCard from '@/components/ProductCard';
-import { products } from '@/types/store';
+import { products as productsList } from '@/types/store';
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   
-  const filteredProducts = products.filter(product => 
+  const filteredProducts = Object.values(productsList).filter(product => 
     product.name.toLowerCase().includes(query.toLowerCase()) ||
     product.description.toLowerCase().includes(query.toLowerCase())
   );
