@@ -1,68 +1,89 @@
 
 import React from 'react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Button } from './ui/button';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-const FeaturedCarousel = () => {
-  const slides = [
-    {
-      id: 1,
-      title: 'Grandes Ofertas en Tecnología',
-      description: 'Hasta 30% de descuento',
-      image: 'https://via.placeholder.com/1200x400/3498db/ffffff',
-      color: 'bg-blue-500',
-    },
-    {
-      id: 2,
-      title: 'Artículos del Hogar',
-      description: 'Encuentra todo para tu casa',
-      image: 'https://via.placeholder.com/1200x400/e74c3c/ffffff',
-      color: 'bg-red-500',
-    },
-    {
-      id: 3,
-      title: 'Nuevas Colecciones',
-      description: 'Descubre las últimas tendencias',
-      image: 'https://via.placeholder.com/1200x400/2ecc71/ffffff',
-      color: 'bg-green-500',
-    },
-  ];
+const slides = [
+  {
+    title: "Grandes Ofertas en Tecnología",
+    subtitle: "Hasta 30% de descuento",
+    buttonText: "Ver ofertas",
+    bgImage: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1920&q=80"
+  },
+  {
+    title: "Artículos del Hogar",
+    subtitle: "Lo mejor para tu casa",
+    buttonText: "Explorar",
+    bgImage: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80"
+  },
+  {
+    title: "Nuevas Colecciones",
+    subtitle: "Descubre las últimas tendencias",
+    buttonText: "Ver colección",
+    bgImage: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1920&q=80"
+  }
+];
+
+export const FeaturedCarousel = () => {
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   return (
-    <div className="container mx-auto mt-6">
-      <Carousel className="mx-auto">
-        <CarouselContent>
-          {slides.map((slide) => (
-            <CarouselItem key={slide.id}>
-              <div 
-                className={`relative h-[400px] w-full rounded-lg overflow-hidden`}
-                style={{ backgroundImage: `url(${slide.image})`, backgroundSize: 'cover' }}
-              >
-                <div className={`absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-center items-start p-12`}>
-                  <h2 className="text-4xl font-bold text-white mb-4">
-                    {slide.title}
-                  </h2>
-                  <p className="text-xl text-white mb-6">
-                    {slide.description}
-                  </p>
-                  <button className="bg-white text-black font-medium px-6 py-2 rounded-md hover:bg-opacity-90 transition-all">
-                    Ver ofertas
-                  </button>
-                </div>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+    <div className="relative w-full h-[500px] overflow-hidden rounded-lg">
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
+            currentSlide === index ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${slide.bgImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div className="flex flex-col items-start justify-center h-full px-8 md:px-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{slide.title}</h2>
+            <p className="text-xl md:text-2xl text-white mb-8">{slide.subtitle}</p>
+            <Button variant="secondary" size="lg" className="text-lg">
+              {slide.buttonText}
+            </Button>
+          </div>
+        </div>
+      ))}
+      
+      <button 
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition-colors"
+      >
+        <ArrowLeft className="h-6 w-6" />
+      </button>
+      
+      <button 
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition-colors"
+      >
+        <ArrowRight className="h-6 w-6" />
+      </button>
+      
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              currentSlide === index ? 'bg-white' : 'bg-white/50'
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
-
-export default FeaturedCarousel;
