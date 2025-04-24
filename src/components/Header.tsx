@@ -1,14 +1,15 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ShoppingBag, User, Search } from 'lucide-react';
 import Logo from './Logo';
 import { useCart } from '@/contexts/CartContext';
+import CartDrawer from './CartDrawer';
 
 const Header = () => {
   const { totalItems } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -47,7 +48,11 @@ const Header = () => {
               <User className="mr-2 h-5 w-5" />
               Mi Cuenta
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setIsCartOpen(true)}
+            >
               <ShoppingBag className="mr-2 h-5 w-5" />
               Carrito ({totalItems})
             </Button>
@@ -67,6 +72,11 @@ const Header = () => {
           </nav>
         </div>
       </div>
+      
+      <CartDrawer 
+        open={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+      />
     </header>
   );
 };
