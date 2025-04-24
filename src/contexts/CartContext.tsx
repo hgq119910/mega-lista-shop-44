@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState } from 'react';
 import { Product } from '@/types/store';
 import { useToast } from '@/hooks/use-toast';
@@ -13,6 +12,7 @@ interface CartContextType {
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
+  clearCart: () => void;
   totalItems: number;
 }
 
@@ -66,10 +66,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
   };
 
+  const clearCart = () => {
+    setItems([]);
+  };
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, totalItems }}>
+    <CartContext.Provider value={{ 
+      items, 
+      addToCart, 
+      removeFromCart, 
+      updateQuantity, 
+      clearCart,
+      totalItems 
+    }}>
       {children}
     </CartContext.Provider>
   );

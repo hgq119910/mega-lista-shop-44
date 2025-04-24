@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/drawer';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
 
 interface CartDrawerProps {
   open: boolean;
@@ -19,30 +20,43 @@ interface CartDrawerProps {
 }
 
 const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
-  const { items, removeFromCart, updateQuantity } = useCart();
+  const { items, removeFromCart, updateQuantity, clearCart } = useCart();
+  const navigate = useNavigate();
   const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
   const handleCheckout = async () => {
     try {
-      // Simular proceso de pago
+      // 1. Crear la orden primero
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          total,
+          status: 'completed',
+          user_id: '00000000-0000-0000-0000-000000000000' // Demo user ID
+        })
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // 2. Crear los items de la orden
       const orderItems = items.map(item => ({
+        order_id: order.id,
         product_id: item.product.id,
         quantity: item.quantity,
         price: item.product.price
       }));
 
-      const { error } = await supabase
-        .from('orders')
-        .insert({
-          total: total,
-          status: 'completed',
-          order_items: orderItems
-        });
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
 
-      if (error) throw error;
+      if (itemsError) throw itemsError;
 
       toast.success("¡Pedido realizado con éxito!");
+      clearCart(); // Limpiar el carrito después de la compra
       onClose();
+      navigate('/my-orders'); // Redirigir a la página de pedidos
     } catch (error) {
       console.error('Error al procesar el pedido:', error);
       toast.error("Error al procesar el pedido");
