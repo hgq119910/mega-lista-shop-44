@@ -119,30 +119,30 @@ export const products: Record<string, Product> = {
   },
   "t1": {
     id: "t1",
-    name: "Auriculares Bluetooth",
-    price: 59.99,
-    image: "https://via.placeholder.com/150",
+    name: "AirPods 4 Bluetooth",
+    price: 249.99,
+    image: "/lovable-uploads/35b9fa30-7976-465b-8aa5-d205905e2d25.png",
     categories: ["tecnologia"],
-    description: "Auriculares inalámbricos con cancelación de ruido",
-    stock: 12
+    description: "Auriculares inalámbricos con cancelación activa de ruido, resistentes al agua y al sudor. Incluye estuche de carga con conexión USB-C y hasta 24 horas de batería.",
+    stock: 15
   },
   "t2": {
     id: "t2",
-    name: "Smartwatch",
-    price: 129.99,
-    image: "https://via.placeholder.com/150",
+    name: "Smartwatch Premium Series",
+    price: 179.99,
+    image: "/lovable-uploads/eca57e9a-e4ef-458b-a423-953e21eef893.png",
     categories: ["tecnologia"],
-    description: "Reloj inteligente con monitoreo cardíaco",
-    stock: 5
+    description: "Reloj inteligente con pantalla AMOLED, monitoreo de salud 24/7, GPS integrado, resistente al agua y más de 100 modos deportivos. Compatible con iOS y Android.",
+    stock: 20
   },
   "t3": {
     id: "t3",
-    name: "Cargador Inalámbrico",
-    price: 24.99,
-    image: "https://via.placeholder.com/150",
+    name: "Cargador Inalámbrico LED",
+    price: 39.99,
+    image: "/lovable-uploads/a5be3ee2-918a-4485-82a0-60bd7f1e12b3.png",
     categories: ["tecnologia"],
-    description: "Base de carga rápida para smartphones",
-    stock: 18
+    description: "Base de carga rápida inalámbrica con iluminación LED ambiental. Compatible con todos los dispositivos Qi, carga rápida de 15W y diseño ultra delgado.",
+    stock: 25
   },
   "r1": {
     id: "r1",
