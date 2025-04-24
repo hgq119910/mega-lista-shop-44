@@ -16,8 +16,8 @@ const Header = () => {
       <div className="bg-gray-100 py-2">
         <div className="container flex justify-end items-center">
           <nav className="flex gap-4 text-sm">
+            <Link to="/my-orders" className="hover:underline">Mis Pedidos</Link>
             <Link to="/" className="hover:underline">Atención al Cliente</Link>
-            <Link to="/" className="hover:underline">Mis Pedidos</Link>
             <Link to="/" className="hover:underline">Locales</Link>
             <Link to="/" className="hover:underline">Ingresa o Regístrate</Link>
           </nav>
