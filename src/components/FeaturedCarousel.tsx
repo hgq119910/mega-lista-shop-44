@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from './ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -8,7 +7,7 @@ const slides = [
     title: "Grandes Ofertas en Tecnología",
     subtitle: "Hasta 30% de descuento",
     buttonText: "Ver ofertas",
-    bgImage: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1920&q=80"
+    bgImage: "/lovable-uploads/6b82d451-32e6-4c77-af39-8df97ebe6f1a.png"
   },
   {
     title: "Artículos del Hogar",
@@ -20,7 +19,7 @@ const slides = [
     title: "Nuevas Colecciones de Moda",
     subtitle: "Descubre los últimos estilos",
     buttonText: "Ver colección",
-    bgImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80"
+    bgImage: "/lovable-uploads/a2d685a5-1dfd-4925-b808-78d072f42fae.png"
   }
 ];
 
