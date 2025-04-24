@@ -146,38 +146,37 @@ export const products: Record<string, Product> = {
   },
   "r1": {
     id: "r1",
-    name: "Camiseta Básica",
-    price: 14.99,
-    image: "https://via.placeholder.com/150",
+    name: "Camiseta Nike Essential",
+    price: 29.99,
+    image: "/lovable-uploads/e151d311-6231-4639-ab9d-1a5b841a80e8.png",
     categories: ["ropa"],
-    description: "Camiseta de algodón, disponible en varios colores",
+    description: "Camiseta Nike clásica en negro con logo swoosh. Confeccionada en algodón suave y transpirable, perfecta para uso diario o entrenamiento ligero. Corte regular que ofrece un ajuste cómodo y versátil.",
     stock: 40
   },
   "r2": {
     id: "r2",
-    name: "Pantalones Vaqueros",
-    price: 34.99,
-    image: "https://via.placeholder.com/150",
+    name: "Jeans Clásicos Slim Fit",
+    price: 59.99,
+    image: "/lovable-uploads/e728ceb5-d7eb-4db5-92f4-120a63e95211.png",
     categories: ["ropa"],
-    description: "Jeans clásicos de corte recto",
-    stock: 22
+    description: "Jeans de corte slim fit en lavado medio. Confeccionados con denim premium que combina estilo y comodidad. Diseño versátil con cinco bolsillos y acabados de alta calidad.",
+    stock: 25
   },
   "r3": {
     id: "r3",
-    name: "Zapatos Deportivos",
-    price: 49.99,
-    image: "https://via.placeholder.com/150",
+    name: "Nike Flex Runner Blanco",
+    price: 89.99,
+    image: "/lovable-uploads/69c6aa32-0e9d-4cfe-993c-92ca063d08de.png",
     categories: ["ropa"],
-    description: "Zapatillas para running con suela amortiguada",
-    stock: 15
+    description: "Zapatillas deportivas Nike Flex Runner en blanco puro. Diseño minimalista con tecnología de amortiguación flexible, ideal para running urbano o uso diario. Material transpirable y suela resistente.",
+    stock: 18
   },
-  // Ejemplo de producto que pertenece a múltiples categorías (multilista)
   "m1": {
     id: "m1",
     name: "Organizador Multiusos",
     price: 17.99,
     image: "https://via.placeholder.com/150",
-    categories: ["hogar", "limpieza"], // Pertenece a dos categorías
+    categories: ["hogar", "limpieza"],
     description: "Organizador para artículos del hogar o productos de limpieza",
     stock: 8
   }
