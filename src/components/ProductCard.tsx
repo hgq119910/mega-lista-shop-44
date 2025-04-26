@@ -14,29 +14,31 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
+    <div 
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-in"
+    >
       <Link to={`/product/${product.id}`} className="block overflow-hidden">
-        <div className="relative w-full h-48 overflow-hidden">
+        <div className="relative w-full h-48 overflow-hidden group">
           <img 
             src={product.image} 
             alt={product.name} 
-            className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           {product.stock < 5 && product.stock > 0 && (
-            <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
+            <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">
               ¡Últimas unidades!
             </span>
           )}
           {product.stock === 0 && (
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <span className="bg-red-500 text-white px-3 py-1 rounded-md font-medium">
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm transition-all duration-300">
+              <span className="bg-red-500 text-white px-3 py-1 rounded-md font-medium animate-fade-in">
                 Agotado
               </span>
             </div>
           )}
         </div>
       </Link>
-      <div className="p-4">
+      <div className="p-4 transform transition-all duration-300">
         <Link to={`/product/${product.id}`} className="block">
           <h3 className="font-medium text-lg mb-2 hover:text-primary transition-colors line-clamp-2">
             {product.name}
@@ -49,7 +51,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             size="sm"
             onClick={() => addToCart(product)}
             disabled={product.stock === 0}
-            className="transition-all hover:scale-105"
+            className="transition-all duration-300 hover:scale-105 hover:shadow-lg"
           >
             <ShoppingCart className="mr-2 h-4 w-4" />
             Agregar
