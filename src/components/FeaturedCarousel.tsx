@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from './ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const slides = [
   {
@@ -30,6 +30,7 @@ const slides = [
 
 export const FeaturedCarousel = () => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
+  const navigate = useNavigate();
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -37,6 +38,11 @@ export const FeaturedCarousel = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const handleButtonClick = () => {
+    // Navegar directamente usando el enlace del slide actual
+    navigate(slides[currentSlide].link);
   };
 
   return (
@@ -56,10 +62,13 @@ export const FeaturedCarousel = () => {
           <div className="flex flex-col items-start justify-center h-full px-8 md:px-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{slide.title}</h2>
             <p className="text-xl md:text-2xl text-white mb-8">{slide.subtitle}</p>
-            <Button variant="secondary" size="lg" className="text-lg" asChild>
-              <Link to={slide.link}>
-                {slide.buttonText}
-              </Link>
+            <Button 
+              variant="secondary" 
+              size="lg" 
+              className="text-lg" 
+              onClick={handleButtonClick}
+            >
+              {slide.buttonText}
             </Button>
           </div>
         </div>
