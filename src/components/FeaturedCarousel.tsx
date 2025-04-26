@@ -1,25 +1,30 @@
+
 import React from 'react';
 import { Button } from './ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const slides = [
   {
     title: "Grandes Ofertas en Tecnología",
     subtitle: "Hasta 30% de descuento",
     buttonText: "Ver ofertas",
-    bgImage: "/lovable-uploads/6b82d451-32e6-4c77-af39-8df97ebe6f1a.png"
+    bgImage: "/lovable-uploads/6b82d451-32e6-4c77-af39-8df97ebe6f1a.png",
+    link: "/category/tecnologia" // Añadimos el enlace a la categoría de tecnología
   },
   {
     title: "Artículos del Hogar",
     subtitle: "Lo mejor para tu casa",
     buttonText: "Explorar",
-    bgImage: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80"
+    bgImage: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80",
+    link: "/category/hogar"
   },
   {
     title: "Nuevas Colecciones de Moda",
     subtitle: "Descubre los últimos estilos",
     buttonText: "Ver colección",
-    bgImage: "/lovable-uploads/a2d685a5-1dfd-4925-b808-78d072f42fae.png"
+    bgImage: "/lovable-uploads/a2d685a5-1dfd-4925-b808-78d072f42fae.png",
+    link: "/category/ropa"
   }
 ];
 
@@ -51,8 +56,10 @@ export const FeaturedCarousel = () => {
           <div className="flex flex-col items-start justify-center h-full px-8 md:px-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{slide.title}</h2>
             <p className="text-xl md:text-2xl text-white mb-8">{slide.subtitle}</p>
-            <Button variant="secondary" size="lg" className="text-lg">
-              {slide.buttonText}
+            <Button variant="secondary" size="lg" className="text-lg" asChild>
+              <Link to={slide.link}>
+                {slide.buttonText}
+              </Link>
             </Button>
           </div>
         </div>
