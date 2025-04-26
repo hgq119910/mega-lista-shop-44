@@ -41,17 +41,28 @@ export const FeaturedCarousel = () => {
   };
 
   const handleButtonClick = () => {
-    // Navegar directamente usando el enlace del slide actual
     navigate(slides[currentSlide].link);
   };
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 5000); // Cambia de slide cada 5 segundos
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="relative w-full h-[500px] overflow-hidden rounded-lg">
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
-            currentSlide === index ? 'opacity-100' : 'opacity-0'
+          className={`absolute top-0 left-0 w-full h-full transition-all duration-700 transform ${
+            currentSlide === index 
+              ? 'opacity-100 translate-x-0' 
+              : index > currentSlide 
+                ? 'opacity-0 translate-x-full' 
+                : 'opacity-0 -translate-x-full'
           }`}
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${slide.bgImage})`,
@@ -60,13 +71,30 @@ export const FeaturedCarousel = () => {
           }}
         >
           <div className="flex flex-col items-start justify-center h-full px-8 md:px-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{slide.title}</h2>
-            <p className="text-xl md:text-2xl text-white mb-8">{slide.subtitle}</p>
+            <h2 
+              className="text-4xl md:text-5xl font-bold text-white mb-4 animate-fade-in"
+              style={{
+                animationDelay: '300ms'
+              }}
+            >
+              {slide.title}
+            </h2>
+            <p 
+              className="text-xl md:text-2xl text-white mb-8 animate-fade-in"
+              style={{
+                animationDelay: '500ms'
+              }}
+            >
+              {slide.subtitle}
+            </p>
             <Button 
               variant="secondary" 
               size="lg" 
-              className="text-lg" 
+              className="text-lg animate-fade-in hover:scale-105 transition-transform duration-200" 
               onClick={handleButtonClick}
+              style={{
+                animationDelay: '700ms'
+              }}
             >
               {slide.buttonText}
             </Button>
@@ -76,14 +104,14 @@ export const FeaturedCarousel = () => {
       
       <button 
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition-colors"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition-colors hover:scale-110 transform duration-200"
       >
         <ArrowLeft className="h-6 w-6" />
       </button>
       
       <button 
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition-colors"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition-colors hover:scale-110 transform duration-200"
       >
         <ArrowRight className="h-6 w-6" />
       </button>
@@ -93,8 +121,8 @@ export const FeaturedCarousel = () => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              currentSlide === index ? 'bg-white' : 'bg-white/50'
+            className={`w-3 h-3 rounded-full transition-all duration-300 transform hover:scale-125 ${
+              currentSlide === index ? 'bg-white scale-110' : 'bg-white/50'
             }`}
           />
         ))}
