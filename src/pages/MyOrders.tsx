@@ -20,6 +20,8 @@ import {
   CollapsibleTrigger 
 } from "@/components/ui/collapsible";
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { products } from '@/types/store';
 
 const MyOrders = () => {
   // Estado para controlar qué pedido está expandido
@@ -41,6 +43,16 @@ const MyOrders = () => {
       return data;
     }
   });
+
+  // Función para obtener el nombre del producto
+  const getProductName = (productId: string) => {
+    return products[productId]?.name || 'Producto no encontrado';
+  };
+
+  // Función para obtener la imagen del producto
+  const getProductImage = (productId: string) => {
+    return products[productId]?.image || '/placeholder.svg';
+  };
 
   // Función para alternar la expansión de un pedido
   const toggleOrderExpansion = (orderId: string) => {
@@ -123,7 +135,7 @@ const MyOrders = () => {
                               <Table>
                                 <TableHeader>
                                   <TableRow>
-                                    <TableHead>Producto ID</TableHead>
+                                    <TableHead>Producto</TableHead>
                                     <TableHead>Cantidad</TableHead>
                                     <TableHead className="text-right">Precio</TableHead>
                                     <TableHead className="text-right">Subtotal</TableHead>
@@ -132,7 +144,23 @@ const MyOrders = () => {
                                 <TableBody>
                                   {order.order_items.map((item) => (
                                     <TableRow key={item.id} className="hover:bg-white">
-                                      <TableCell className="font-medium">{item.product_id}</TableCell>
+                                      <TableCell>
+                                        <div className="flex items-center gap-3">
+                                          <Avatar className="h-10 w-10 rounded-md">
+                                            <AvatarImage 
+                                              src={getProductImage(item.product_id)} 
+                                              alt={getProductName(item.product_id)}
+                                              className="object-cover"
+                                            />
+                                            <AvatarFallback className="rounded-md bg-primary/10">
+                                              {item.product_id.substring(0, 2).toUpperCase()}
+                                            </AvatarFallback>
+                                          </Avatar>
+                                          <span className="font-medium text-sm">
+                                            {getProductName(item.product_id)}
+                                          </span>
+                                        </div>
+                                      </TableCell>
                                       <TableCell>{item.quantity}</TableCell>
                                       <TableCell className="text-right">${item.price.toFixed(2)}</TableCell>
                                       <TableCell className="text-right">${(item.price * item.quantity).toFixed(2)}</TableCell>
