@@ -7,13 +7,15 @@ import ProductCard from './ProductCard';
 
 interface CategorySectionProps {
   category: Category;
+  limit?: number; // Opcional: limitar el número de productos a mostrar
 }
 
-const CategorySection = ({ category }: CategorySectionProps) => {
+const CategorySection = ({ category, limit = 4 }: CategorySectionProps) => {
   // Obtenemos solo los productos que corresponden a esta categoría
   const categoryProducts = category.products
     .map(id => products[id])
-    .filter(Boolean);
+    .filter(Boolean)
+    .slice(0, limit); // Limitamos la cantidad de productos mostrados
 
   return (
     <section className="py-8">
@@ -32,7 +34,7 @@ const CategorySection = ({ category }: CategorySectionProps) => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categoryProducts.slice(0, 4).map(product => (
+          {categoryProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

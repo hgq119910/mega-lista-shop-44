@@ -1,9 +1,11 @@
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import ProductCard from '@/components/ProductCard';
 import { categories, products } from '@/types/store';
+import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
 
 const CategoryPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,8 +19,15 @@ const CategoryPage = () => {
         <Header />
         <div className="container py-12 text-center">
           <h1 className="text-3xl font-bold mb-4">Categoría no encontrada</h1>
-          <p>Lo sentimos, la categoría que buscas no existe.</p>
-          <p className="text-gray-500 mt-2">ID de categoría buscado: "{id}"</p>
+          <p className="mb-4">Lo sentimos, la categoría que buscas no existe.</p>
+          <p className="text-gray-500 mb-8">ID de categoría buscado: "{id}"</p>
+          
+          <Link to="/">
+            <Button className="inline-flex items-center gap-2">
+              <Home size={16} />
+              Volver a la página principal
+            </Button>
+          </Link>
         </div>
       </div>
     );

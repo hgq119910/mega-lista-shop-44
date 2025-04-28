@@ -15,7 +15,7 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { searchQuery, setSearchQuery, handleSearch } = useSearch();
   
-  // Mapeamos las categorías de nuestros datos para el menú
+  // Mapeamos las categorías asegurándonos que usemos el id correcto para las URLs
   const menuCategories = [
     { name: "Todas las Categorías", id: "" },
     ...categories.map(cat => ({ name: cat.name, id: cat.id }))
@@ -92,7 +92,7 @@ const Header = () => {
               <Link 
                 key={index}
                 to={category.id ? `/category/${category.id}` : "/"} 
-                className="px-4 py-3 hover:bg-primary/80 transition-colors duration-300 relative group"
+                className="px-4 py-3 hover:bg-primary/80 transition-colors duration-300 relative group whitespace-nowrap"
               >
                 {category.name}
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
