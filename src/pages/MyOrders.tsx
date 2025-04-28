@@ -22,6 +22,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { products } from '@/types/store';
+import { formatCOP } from '@/lib/formatters';
 
 const MyOrders = () => {
   // Estado para controlar qué pedido está expandido
@@ -115,7 +116,7 @@ const MyOrders = () => {
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        ${order.total.toFixed(2)}
+                        {formatCOP(order.total)}
                       </TableCell>
                     </TableRow>
                     
@@ -162,14 +163,14 @@ const MyOrders = () => {
                                         </div>
                                       </TableCell>
                                       <TableCell>{item.quantity}</TableCell>
-                                      <TableCell className="text-right">${item.price.toFixed(2)}</TableCell>
-                                      <TableCell className="text-right">${(item.price * item.quantity).toFixed(2)}</TableCell>
+                                      <TableCell className="text-right">{formatCOP(item.price)}</TableCell>
+                                      <TableCell className="text-right">{formatCOP(item.price * item.quantity)}</TableCell>
                                     </TableRow>
                                   ))}
                                   <TableRow>
                                     <TableCell colSpan={2}></TableCell>
                                     <TableCell className="text-right font-bold">Total:</TableCell>
-                                    <TableCell className="text-right font-bold">${order.total.toFixed(2)}</TableCell>
+                                    <TableCell className="text-right font-bold">{formatCOP(order.total)}</TableCell>
                                   </TableRow>
                                 </TableBody>
                               </Table>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -6,6 +5,7 @@ import { products, categories } from '@/types/store';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, ArrowLeft, Check } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { formatCOP } from '@/lib/formatters';
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,7 +27,6 @@ const ProductPage = () => {
     );
   }
   
-  // Buscar las categorías a las que pertenece este producto
   const productCategories = categories.filter(
     category => product.categories.includes(category.id)
   );
@@ -44,7 +43,6 @@ const ProductPage = () => {
         
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Imagen del producto */}
             <div className="bg-gray-50 rounded-lg overflow-hidden">
               <img
                 src={product.image}
@@ -53,11 +51,9 @@ const ProductPage = () => {
               />
             </div>
             
-            {/* Detalles del producto */}
             <div>
               <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
               
-              {/* Categorías (multilista visual) */}
               <div className="flex flex-wrap gap-2 mb-4">
                 {productCategories.map(cat => (
                   <Link 
@@ -71,14 +67,13 @@ const ProductPage = () => {
               </div>
               
               <div className="text-3xl font-bold text-primary mb-4">
-                ${product.price.toFixed(2)}
+                {formatCOP(product.price)}
               </div>
               
               <p className="text-gray-600 mb-6">
                 {product.description}
               </p>
               
-              {/* Características */}
               <div className="mb-6 bg-gray-50 p-4 rounded-lg">
                 <h3 className="font-medium mb-2">Características:</h3>
                 <ul className="space-y-2">
@@ -97,7 +92,6 @@ const ProductPage = () => {
                 </ul>
               </div>
               
-              {/* Disponibilidad */}
               <div className="mb-6">
                 <span className="text-sm font-medium">Disponibilidad: </span>
                 {product.stock > 0 ? (
@@ -107,7 +101,6 @@ const ProductPage = () => {
                 )}
               </div>
               
-              {/* Botón de compra */}
               <Button 
                 className="w-full" 
                 size="lg" 

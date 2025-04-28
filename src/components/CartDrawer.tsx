@@ -12,6 +12,7 @@ import {
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
+import { formatCOP } from '@/lib/formatters';
 
 interface CartDrawerProps {
   open: boolean;
@@ -25,7 +26,6 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
 
   const handleCheckout = async () => {
     try {
-      // 1. Crear la orden primero
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -43,7 +43,6 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
         throw new Error("No se pudo crear la orden");
       }
 
-      // 2. Crear los items de la orden
       const orderItems = items.map(item => ({
         order_id: order[0].id,
         product_id: item.product.id,
@@ -61,9 +60,9 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
       }
 
       toast.success("¡Pedido realizado con éxito!");
-      clearCart(); // Limpiar el carrito después de la compra
+      clearCart();
       onClose();
-      navigate('/my-orders'); // Redirigir a la página de pedidos
+      navigate('/my-orders');
     } catch (error) {
       console.error('Error al procesar el pedido:', error);
       toast.error("Error al procesar el pedido");
@@ -94,7 +93,7 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
                     />
                     <div>
                       <h3 className="font-medium">{item.product.name}</h3>
-                      <p className="text-sm text-gray-500">${item.product.price}</p>
+                      <p className="text-sm text-gray-500">{formatCOP(item.product.price)}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -134,7 +133,7 @@ const CartDrawer = ({ open, onClose }: CartDrawerProps) => {
             <>
               <div className="flex justify-between text-lg font-semibold mb-4">
                 <span>Total:</span>
-                <span>${total.toFixed(2)}</span>
+                <span>{formatCOP(total)}</span>
               </div>
               <Button onClick={handleCheckout} className="w-full">
                 Proceder al pago
