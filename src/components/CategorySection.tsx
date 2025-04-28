@@ -32,7 +32,7 @@ const CategorySection = ({ category }: CategorySectionProps) => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categoryProducts.map(product => (
+          {categoryProducts.slice(0, 4).map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

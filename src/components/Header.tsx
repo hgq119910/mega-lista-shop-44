@@ -8,11 +8,18 @@ import Logo from './Logo';
 import { useCart } from '@/contexts/CartContext';
 import CartDrawer from './CartDrawer';
 import { useSearch } from '@/hooks/useSearch';
+import { categories } from '@/types/store';
 
 const Header = () => {
   const { totalItems } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { searchQuery, setSearchQuery, handleSearch } = useSearch();
+  
+  // Mapeamos las categorías de nuestros datos para el menú
+  const menuCategories = [
+    { name: "Todas las Categorías", id: "" },
+    ...categories.map(cat => ({ name: cat.name, id: cat.id }))
+  ];
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -81,13 +88,13 @@ const Header = () => {
       <div className="bg-primary text-white">
         <div className="container">
           <nav className="flex overflow-x-auto">
-            {["Todas las Categorías", "Hogar", "Limpieza", "Tecnología", "Ropa"].map((category, index) => (
+            {menuCategories.map((category, index) => (
               <Link 
                 key={index}
-                to={category === "Todas las Categorías" ? "/" : `/category/${category.toLowerCase()}`} 
+                to={category.id ? `/category/${category.id}` : "/"} 
                 className="px-4 py-3 hover:bg-primary/80 transition-colors duration-300 relative group"
               >
-                {category}
+                {category.name}
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
               </Link>
             ))}

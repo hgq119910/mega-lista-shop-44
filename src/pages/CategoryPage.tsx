@@ -8,7 +8,7 @@ import { categories, products } from '@/types/store';
 const CategoryPage = () => {
   const { id } = useParams<{ id: string }>();
   
-  // Encontrar la categoría seleccionada
+  // Encontrar la categoría seleccionada (asegurándonos de que coincida exactamente)
   const category = categories.find(cat => cat.id === id);
   
   if (!category) {
@@ -18,6 +18,7 @@ const CategoryPage = () => {
         <div className="container py-12 text-center">
           <h1 className="text-3xl font-bold mb-4">Categoría no encontrada</h1>
           <p>Lo sentimos, la categoría que buscas no existe.</p>
+          <p className="text-gray-500 mt-2">ID de categoría buscado: "{id}"</p>
         </div>
       </div>
     );
